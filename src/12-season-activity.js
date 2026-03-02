@@ -30,6 +30,36 @@
  * @param {number} temperature - Current temperature in Celsius
  * @returns {{ season: string, activity: string } | null}
  */
+const WanderPricingSeason=["","Winter","Winter","Spring","Spring","Spring","Summer","Summer","Summer","Autumn","Autumn","Autumn","Winter"];
+const WanderLustActivity={
+"Winter":["skiing","ice skating"],
+"Spring":["museum visit","hiking",],
+"Summer":["swimming","cycling"],
+"Autumn":["reading at a cafe","nature walk"]
+}
 export function getSeasonActivity(month, temperature) {
   // Your code here
+  if(month<1 || month > 12 ) return null;
+  const season=WanderPricingSeason[month];
+  console.log(season);
+  const activity=WanderLustActivity[season];
+  let seasonactivity="";
+  if(season==="Winter"){
+  seasonactivity= temperature >=0 ? activity[1]:activity[0];
+  }
+  else if(season ==="Autumn"){
+    seasonactivity= temperature > 15 ?  activity[1]:activity[0];
+  }
+  else if(season==="Spring"){
+  seasonactivity= temperature > 20 ? activity[1]:activity[0]
+  }
+  else if(season==="Summer"){
+  seasonactivity= temperature <=35 ? activity[1]:activity[0];
+  }
+
+    return {
+    season:season,
+    activity:seasonactivity
+    };
 }
+getSeasonActivity(11,10);

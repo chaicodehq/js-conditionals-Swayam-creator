@@ -32,6 +32,33 @@
  * @param {string} vehicleType - "car", "motorcycle", or "bus"
  * @returns {number} Parking fee or -1 for invalid input
  */
+ const vehicleParkingPriceChart={
+     "car":{
+     dailymax:30,
+     firstHour:5,
+     hourlyRate:3,
+     },
+     "motorcycle":{
+     dailymax:18,
+     firstHour:3,
+     hourlyRate:2,
+     },
+     "bus":{
+     dailymax:60,
+     firstHour:10,
+     hourlyRate:7,
+     },
+   }
+function isVehicleAvailable(vehicleType,vehicleObj){
+ return Object.prototype.hasOwnProperty.call(vehicleObj,vehicleType);
+}
 export function calculateParkingFee(hours, vehicleType) {
   // Your code here
+ if(!isVehicleAvailable(vehicleType,vehicleParkingPriceChart)) return -1;
+ if(hours<=0) return -1;
+ hours=Math.ceil(hours);
+ let parkingFee=0;
+ const {dailymax,firstHour,hourlyRate}=vehicleParkingPriceChart[vehicleType];
+ parkingFee=firstHour + hourlyRate*(hours-1);
+ return Math.min(parkingFee,dailymax);
 }

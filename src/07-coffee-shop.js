@@ -32,4 +32,38 @@
  */
 export function calculateCoffeePrice(size, type, extras = {}) {
   // Your code here
+   const coffeeMenu={
+    BASEPRICE:{
+    SMALL     :3.00,
+    MEDIUM    :4.00,
+    LARGE     :5.00
+    },
+    ADD_ON:{
+    REGULAR   :0.00,
+    LATTE     :1.00,
+    CAPPUCCINO:1.50,
+    MOCHA     :2.00
+    },
+    OPTIONAL_EXTRAS:{
+     WHIPPEDCREAM:0.50,
+     EXTRASHOT    :0.75
+    },
+   }
+  let totalPrice=0;
+  let coffeeType=type.toUpperCase();
+   let basePrice=size.toUpperCase();
+  if(!(basePrice in coffeeMenu.BASEPRICE) || !(coffeeType in coffeeMenu.ADD_ON)){ return -1;}
+
+
+
+   for (const extra in extras){
+   let extraU=extra.toUpperCase();
+   if(extras[extra] && coffeeMenu.OPTIONAL_EXTRAS[extraU])
+   totalPrice+=coffeeMenu.OPTIONAL_EXTRAS[extraU];
+   }
+
+
+   totalPrice+=coffeeMenu.BASEPRICE[basePrice]+coffeeMenu.ADD_ON[coffeeType];
+   return Number(totalPrice.toFixed(2));
+
 }
